@@ -25,15 +25,22 @@ function modalImg(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
-
-  const bigImg = basicLightbox.create(`
-     <img src="${event.target.dataset.source}" width="800" height="600">
-  `);
-  bigImg.show();
-
-  gallery.addEventListener("keydown", (event) => {
+  function closeInstance(event) {
     if (event.code === "Escape") {
-      bigImg.close();
+      instance.close();
     }
-  });
+  }
+
+  const instance = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: () => {
+        document.addEventListener("keydown", closeInstance);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", closeInstance);
+      },
+    }
+  );
+  instance.show();
 }

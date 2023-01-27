@@ -17,19 +17,11 @@ const markup = galleryItems
   .join("");
 gallery.innerHTML = markup;
 
-gallery.addEventListener("click", modalImg);
-function modalImg(event) {
-  event.preventDefault();
-  if (event.target.nodeName !== "IMG") {
-    return;
+gallery = new SimpleLightbox(".gallery a", { captionDelay: 250 });
+gallery.on("show.simplelightbox", function () {});
+
+gallery.addEventListener("keydown", (event) => {
+  if (event.code === "Escape") {
+    instance.on("close.simplelightbox", function () {});
   }
-
-  let gallery = new SimpleLightbox(".gallery a", { captionDelay: 250 });
-  gallery.on("show.simplelightbox", function () {});
-
-  gallery.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      gallery.on("close.simplelightbox", function () {});
-    }
-  });
-}
+});
