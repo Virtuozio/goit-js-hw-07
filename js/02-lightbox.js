@@ -17,11 +17,4 @@ const markup = galleryItems
   .join("");
 gallery.innerHTML = markup;
 
-gallery = new SimpleLightbox(".gallery a", { captionDelay: 250 });
-gallery.on("show.simplelightbox", function () {});
-
-gallery.addEventListener("keydown", (event) => {
-  if (event.code === "Escape") {
-    instance.on("close.simplelightbox", function () {});
-  }
-});
+new SimpleLightbox(".gallery a", { captionDelay: 250 });
